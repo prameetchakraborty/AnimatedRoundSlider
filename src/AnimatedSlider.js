@@ -45,6 +45,6 @@ function getGradientId(index) {
     return `gradient${index}`;
 }
 
-export default class CircularSlider extends PureComponent {
-    
+export default class AnimatedSlider extends PureComponent {
+
 }
