@@ -47,6 +47,11 @@ function getGradientId(index) {
 
 export default class AnimatedSlider extends PureComponent {
     
+    state = {
+        circleCenterX: false,
+        circleCenterY: false,
+    }
+    
     componentWillMount() {
         this._sleepPanResponder = PanResponder.create({
             onMoveShouldSetPanResponder: (evt, gestureState) => true,
@@ -72,4 +77,24 @@ export default class AnimatedSlider extends PureComponent {
                 onUpdate({ startAngle: newAngle, angleLength: newAngleLength % (2 * Math.PI) });
             },
         });
+
+        this._wakePanResponder = PanResponder.create({
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onPanResponderGrant: (evt, gestureState) => this.setCircleCenter(),
+            onPanResponderMove: (evt, { moveX, moveY }) => {
+                const { circleCenterX, circleCenterY } = this.state;
+                const { angleLength, startAngle, onUpdate } = this.props;
+
+                let newAngle = Math.atan2(moveY - circleCenterY, moveX - circleCenterX) + Math.PI / 2;
+                let newAngleLength = (newAngle - startAngle) % (2 * Math.PI);
+
+                if (newAngleLength < 0) {
+                    newAngleLength += 2 * Math.PI;
+                }
+
+                onUpdate({ startAngle, angleLength: newAngleLength });
+            },
+        });
+    }
 }
