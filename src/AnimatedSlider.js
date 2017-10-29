@@ -144,5 +144,35 @@ export default class AnimatedSlider extends PureComponent {
                             })
                         }
                     </Defs>
+                    <G transform={{ translate: `${strokeWidth / 2 + radius + 1}, ${strokeWidth / 2 + radius + 1}` }}>
+                        <Circle
+                            r={radius}
+                            strokeWidth={strokeWidth}
+                            fill="transparent"
+                            stroke={bgCircleColor}
+                        />
+                        {
+                            showClockFace && (
+                                <ClockFace
+                                    r={radius - strokeWidth / 2}
+                                    stroke={clockFaceColor}
+                                />
+                            )
+                        }
+                        {
+                            range(segments).map(i => {
+                                const { fromX, fromY, toX, toY } = calculateArcCircle(i, segments, radius, startAngle, angleLength);
+                                const d = `M ${fromX.toFixed(2)} ${fromY.toFixed(2)} A ${radius} ${radius} 0 0 1 ${toX.toFixed(2)} ${toY.toFixed(2)}`;
+                                return (
+                                    <Path
+                                        d={d}
+                                        key={i}
+                                        strokeWidth={strokeWidth}
+                                        stroke={`url(#${getGradientId(i)})`}
+                                        fill="transparent"
+                                    />
+                                )
+                            })
+                        }
         );
 }
