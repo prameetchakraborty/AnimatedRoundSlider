@@ -56,22 +56,22 @@ export default class App extends React.Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.timeContainer}>
-                    <View style={styles.time}>
-                        <View style={styles.timeHeader}>
+                <View style={style.timeContainer}>
+                    <View style={style.time}>
+                        <View style={style.timeHeader}>
                             <Svg height={16} width={16}>
                                 <G fill="#ff9800"></G>
                             </Svg>
-                            <Text style={styles.time1Text}>Time1</Text>
+                            <Text style={styles.time1Text}>Time 1</Text>
                         </View>
                         <Text style={styles.timeValue}>{time1.h}:{this.padMinutes(time1.m)}</Text>
                     </View>
-                    <View style={styles.time}>
-                        <View style={styles.timeHeader}>
+                    <View style={style.time}>
+                        <View style={style.timeHeader}>
                             <Svg height={16} width={16}>
                                 <G fill="#ffcf00"></G>
                             </Svg>
-                            <Text style={styles.wakeText}>Time2</Text>
+                            <Text style={styles.wakeText}>Time 2</Text>
                         </View>
                         <Text style={styles.timeValue}>{time2.h}:{this.padMinutes(time2.m)}</Text>
                     </View>
@@ -93,11 +93,11 @@ export default class App extends React.Component {
                 <Text style={style.margin}>Made with 
                 <Image 
                 source = {Love}
-                style={{ width: 50, height: 50 }}
+                style={{ marginLeft: 2, width: 20, height: 20, marginTop: 2 }}
                 /> 
                 at 
                 <Image source = {GeekyAnts}
-                style={{ width: 50, height: 50 }}
+                style={{ marginLeft: 2, width: 20, height: 20, marginTop: 2 }}
                 />
                 </Text>
             </View>
