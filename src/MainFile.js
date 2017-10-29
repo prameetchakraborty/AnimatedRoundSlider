@@ -50,9 +50,56 @@ export default class App extends React.Component {
 
     render() {
         const { startAngle, angleLength } = this.state;
-        const bedtime = this.calculateTimeFromAngle(startAngle);
-        const waketime = this.calculateTimeFromAngle((startAngle + angleLength) % (2 * Math.PI));
+        const time1 = this.calculateTimeFromAngle(startAngle);
+        const time2 = this.calculateTimeFromAngle((startAngle + angleLength) % (2 * Math.PI));
 
-        return ();
+        return (
+            <View style={styles.container}>
+                <View style={styles.timeContainer}>
+                    <View style={styles.time}>
+                        <View style={styles.timeHeader}>
+                            <Svg height={16} width={16}>
+                                <G fill="#ff9800"></G>
+                            </Svg>
+                            <Text style={styles.time1Text}>Time1</Text>
+                        </View>
+                        <Text style={styles.timeValue}>{time1.h}:{this.padMinutes(time1.m)}</Text>
+                    </View>
+                    <View style={styles.time}>
+                        <View style={styles.timeHeader}>
+                            <Svg height={16} width={16}>
+                                <G fill="#ffcf00"></G>
+                            </Svg>
+                            <Text style={styles.wakeText}>Time2</Text>
+                        </View>
+                        <Text style={styles.timeValue}>{time2.h}:{this.padMinutes(time2.m)}</Text>
+                    </View>
+                </View>
+                <View>
+                    <AnimatedSlider
+                        startAngle={this.state.startAngle}
+                        angleLength={this.state.angleLength}
+                        onUpdate={({ startAngle, angleLength }) => this.setState({ startAngle, angleLength })}
+                        segments={5}
+                        strokeWidth={40}
+                        radius={145}
+                        gradientColorFrom="#ff9800"
+                        gradientColorTo="#ffcf00"
+                        showClockFace
+                        clockFaceColor="#9d9d9d"
+                        bgCircleColor="#171717" />
+                </View>
+                <Text>Made with love at GeekyAnts</Text>
+            </View>
+        );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
