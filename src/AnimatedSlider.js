@@ -97,4 +97,31 @@ export default class AnimatedSlider extends PureComponent {
             },
         });
     }
+
+    onLayout = () => {
+        this.setCircleCenter();
+    }
+
+    setCircleCenter = () => {
+        this._circle.measure((x, y, w, h, px, py) => {
+            const halfOfContainer = this.getContainerWidth() / 2;
+            this.setState({ circleCenterX: px + halfOfContainer, circleCenterY: py + halfOfContainer });
+        });
+    }
+
+    getContainerWidth() {
+        const { strokeWidth, radius } = this.props;
+        return strokeWidth + radius * 2 + 2;
+    }
+
+    render() {
+        const { startAngle, angleLength, segments, strokeWidth, radius, gradientColorFrom, gradientColorTo, bgCircleColor,
+            showClockFace, clockFaceColor, startIcon, stopIcon } = this.props;
+
+        const containerWidth = this.getContainerWidth();
+
+        const start = calculateArcCircle(0, segments, radius, startAngle, angleLength);
+        const stop = calculateArcCircle(segments - 1, segments, radius, startAngle, angleLength);
+
+        return ();
 }
