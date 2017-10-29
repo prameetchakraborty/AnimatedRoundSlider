@@ -1,7 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
 import AnimatedSlider from './AnimatedSlider';
+import Love from '../images/love_icon.png';
+import GeekyAnts from '../images/geekyants.png';
+import style from './style';
 
 export default class App extends React.Component {
     state = {
@@ -87,7 +90,16 @@ export default class App extends React.Component {
                         clockFaceColor="#9d9d9d"
                         bgCircleColor="#171717" />
                 </View>
-                <Text>Made with love at GeekyAnts</Text>
+                <Text style={style.margin}>Made with 
+                <Image 
+                source = {Love}
+                style={{ width: 50, height: 50 }}
+                /> 
+                at 
+                <Image source = {GeekyAnts}
+                style={{ width: 50, height: 50 }}
+                />
+                </Text>
             </View>
         );
     }
