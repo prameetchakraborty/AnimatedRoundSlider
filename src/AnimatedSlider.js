@@ -123,5 +123,26 @@ export default class AnimatedSlider extends PureComponent {
         const start = calculateArcCircle(0, segments, radius, startAngle, angleLength);
         const stop = calculateArcCircle(segments - 1, segments, radius, startAngle, angleLength);
 
-        return ();
+        return (
+            <View style={{ width: containerWidth, height: containerWidth }} onLayout={this.onLayout}>
+                <Svg
+                    height={containerWidth}
+                    width={containerWidth}
+                    ref={circle => this._circle = circle}
+                >
+                    <Defs>
+                        {
+                            range(segments).map(i => {
+                                const { fromX, fromY, toX, toY } = calculateArcCircle(i, segments, radius, startAngle, angleLength);
+                                const { fromColor, toColor } = calculateArcColor(i, segments, gradientColorFrom, gradientColorTo)
+                                return (
+                                    <LinearGradient key={i} id={getGradientId(i)} x1={fromX.toFixed(2)} y1={fromY.toFixed(2)} x2={toX.toFixed(2)} y2={toY.toFixed(2)}>
+                                        <Stop offset="0%" stopColor={fromColor} />
+                                        <Stop offset="1" stopColor={toColor} />
+                                    </LinearGradient>
+                                )
+                            })
+                        }
+                    </Defs>
+        );
 }
