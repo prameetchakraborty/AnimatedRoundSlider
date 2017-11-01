@@ -63,18 +63,18 @@ export default class App extends React.Component {
                             <Svg height={16} width={16}>
                                 <G fill="#ff9800"></G>
                             </Svg>
-                            <Text style={styles.time1Text}>Time 1</Text>
+                            <Text style={styles.time}>TIME 1</Text>
                         </View>
-                        <Text style={styles.timeValue}>{time1.h}:{this.padMinutes(time1.m)}</Text>
+                        <Text style={styles.text}>{time1.h}:{this.padMinutes(time1.m)}</Text>
                     </View>
                     <View style={style.time}>
                         <View style={style.timeHeader}>
                             <Svg height={16} width={16}>
                                 <G fill="#ffcf00"></G>
                             </Svg>
-                            <Text style={styles.wakeText}>Time 2</Text>
+                            <Text style={styles.time}>TIME 2</Text>
                         </View>
-                        <Text style={styles.timeValue}>{time2.h}:{this.padMinutes(time2.m)}</Text>
+                        <Text style={styles.text}>{time2.h}:{this.padMinutes(time2.m)}</Text>
                     </View>
                 </View>
                 <View>
@@ -95,12 +95,12 @@ export default class App extends React.Component {
                         clockFaceColor="#9d9d9d"
                         bgCircleColor="#171717" />
                 </View>
-                <Text style={style.margin}>Made with 
+                <Text style={styles.footer}>MADE WITH 
                 <Image 
                 source = {Love}
                 style={{ marginLeft: 2, width: 20, height: 20, marginTop: 2 }}
                 /> 
-                at 
+                AT 
                 <Image source = {GeekyAnts}
                 style={{ marginLeft: 2, width: 20, height: 20, marginTop: 2 }}
                 />
@@ -113,8 +113,24 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    text: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: "600",
+        marginBottom: 5,
+    },
+    time: {
+        color: 'white',
+        fontSize: 25,
+        fontWeight: "800",
+    },
+    footer: {
+        color: 'white',
+        fontSize: 15,
+        fontWeight: "bold",
+    }
 });

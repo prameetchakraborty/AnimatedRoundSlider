@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     time: {
-        color: 'black',
+        color: 'white',
         fontSize: 35,
         fontWeight: "300",
     },
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     text: {
-        color: 'black',
+        color: 'white',
         fontSize: 15,
         fontWeight: "300",
         marginBottom: 5,
