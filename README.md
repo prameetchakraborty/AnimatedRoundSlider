@@ -57,7 +57,7 @@ inside of Expo will also open this experience.
 
 # Need Expo?
 
-With Expo you can build, share and enjoy many mobile experiences. Download the app to try AwesomeAnimation today.
+With Expo you can build, share and enjoy many mobile experiences. Download the app to try Animated Round Slider today.
 For links to install the Expo app, please visit https://expo.io.
 
 ## Dependencies

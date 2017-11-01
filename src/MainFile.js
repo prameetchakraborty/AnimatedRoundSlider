@@ -98,11 +98,11 @@ export default class App extends React.Component {
                 <Text style={styles.footer}>MADE WITH 
                 <Image 
                 source = {Love}
-                style={{ marginLeft: 2, width: 20, height: 20, marginTop: 2 }}
+                style={{ marginLeft: 3, width: 15, height: 15, marginTop: 3 }}
                 /> 
                 AT 
                 <Image source = {GeekyAnts}
-                style={{ marginLeft: 2, width: 20, height: 20, marginTop: 2 }}
+                style={{ marginLeft: 2, width: 15, height: 15, marginTop: 3 }}
                 />
                 </Text>
             </View>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'center',
+        width: '100%',
     },
     text: {
         color: 'white',
@@ -130,7 +131,8 @@ const styles = StyleSheet.create({
     },
     footer: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: "bold",
+        marginTop: 20,
     }
 });
