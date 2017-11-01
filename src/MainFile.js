@@ -5,6 +5,7 @@ import AnimatedSlider from './AnimatedSlider';
 import Love from '../images/love_icon.png';
 import GeekyAnts from '../images/geekyants.png';
 import style from './style';
+import Timer from './Timer';
 
 export default class App extends React.Component {
     state = {
@@ -77,6 +78,10 @@ export default class App extends React.Component {
                     </View>
                 </View>
                 <View>
+                    <Timer
+                        style={style.sleepTimeContainer}
+                        minutesLong={this.calculateMinutesFromAngle(angleLength)}
+                    />
                     <AnimatedSlider
                         startAngle={this.state.startAngle}
                         angleLength={this.state.angleLength}
