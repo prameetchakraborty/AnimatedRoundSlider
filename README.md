@@ -43,7 +43,7 @@ Run the following command
 
 Scanning this QR code with your Expo mobile app loads this experience immediately.
 
-![ExpoLink](screenshot/download.png)
+![ExpoLink](screenshot/qr code.png)
 
 OR
 
@@ -51,7 +51,7 @@ OR
 
 Typing 
 
->exp://exp.host/@shubham56/awesomeanimation
+>exp://exp.host/@prameetc/animatedroundslider
 
 inside of Expo will also open this experience.
 
