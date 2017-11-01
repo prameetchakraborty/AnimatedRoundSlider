@@ -43,7 +43,7 @@ Run the following command
 
 Scanning this QR code with your Expo mobile app loads this experience immediately.
 
-![ExpoLink](screenshot/qr code.png)
+![ExpoLink](screenshot/qr_code.png)
 
 OR
 
