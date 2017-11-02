@@ -3,9 +3,9 @@
 An Animated Round Slider created using **_React-Native_** for the purpose of setting on an alarm and can also double up as a stopwatch or timer.
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
-<!--## Preview
+## Preview
 
-![Preview](screenshot/AnimationPreview.gif)-->
+![Preview](screenshot/Preview.gif)
 
 ## Getting Started with the Project
 
@@ -43,7 +43,7 @@ Run the following command
 
 Scanning this QR code with your Expo mobile app loads this experience immediately.
 
-![ExpoLink](screenshot/qr_code.png)
+![ExpoLink](screenshot/qrcode.png)
 
 OR
 
@@ -63,7 +63,7 @@ For links to install the Expo app, please visit https://expo.io.
 ## Dependencies
 
  * React Native
- * React Navigation
+ * React Native SVG
  * Expo
 
 ## Troubleshooting

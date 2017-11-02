@@ -25,17 +25,16 @@ export default class App extends React.Component {
         return { h, m };
     }
 
-    roundAngleToFives(angle) {
+    fiveMinuteAngle(angle) {
         const fiveMinuteAngle = 2 * Math.PI / 144;
-
         return Math.round(angle / fiveMinuteAngle) * fiveMinuteAngle;
     }
 
     padMinutes(min) {
-        if (`${min}`.length < 2) {
+        if (`${min}`.length < 2) 
+        {
             return `0${min}`;
         }
-
         return min;
     }
 
@@ -45,8 +44,8 @@ export default class App extends React.Component {
 
     onUpdate = ({ startAngle, angleLength }) => {
         this.setState({
-            startAngle: roundAngleToFives(startAngle),
-            angleLength: roundAngleToFives(angleLength)
+            startAngle: fiveMinuteAngle(startAngle),
+            angleLength: fiveMinuteAngle(angleLength)
         });
     }
 
@@ -54,12 +53,11 @@ export default class App extends React.Component {
         const { startAngle, angleLength } = this.state;
         const time1 = this.calculateTimeFromAngle(startAngle);
         const time2 = this.calculateTimeFromAngle((startAngle + angleLength) % (2 * Math.PI));
-
         return (
             <View style={styles.container}>
-                <View style={style.timeContainer}>
-                    <View style={style.time}>
-                        <View style={style.timeHeader}>
+                <View>
+                    <View>
+                        <View>
                             <Svg height={16} width={16}>
                                 <G fill="#ff9800"></G>
                             </Svg>
@@ -87,24 +85,26 @@ export default class App extends React.Component {
                         angleLength={this.state.angleLength}
                         onUpdate={({ startAngle, angleLength }) => this.setState({ startAngle, angleLength })}
                         segments={5}
-                        strokeWidth={40}
-                        radius={145}
+                        strokeWidth={30}
+                        radius={150}
                         gradientColorFrom="#ff9800"
                         gradientColorTo="#ffcf00"
                         showClockFace
                         clockFaceColor="#9d9d9d"
                         bgCircleColor="#171717" />
                 </View>
-                <Text style={styles.footer}>MADE WITH 
+                <View style={styles.footer}>
+                    <Text style={styles.footertext}>MADE </Text>
+                    <Text style={styles.footertext}>WITH </Text>
                 <Image 
                 source = {Love}
-                style={{ marginLeft: 3, width: 15, height: 15, marginTop: 3 }}
+                style={{ width: 20, height: 20}}
                 /> 
-                AT 
+                <Text style={styles.footertext}>AT </Text>
                 <Image source = {GeekyAnts}
-                style={{ marginLeft: 2, width: 15, height: 15, marginTop: 3 }}
+                style={{  width: 20, height: 20 }}
                 />
-                </Text>
+                </View>
             </View>
         );
     }
@@ -124,15 +124,23 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         marginBottom: 5,
     },
+    footertext: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: "600",
+    },
     time: {
         color: 'white',
         fontSize: 25,
         fontWeight: "800",
     },
     footer: {
-        color: 'white',
-        fontSize: 13,
-        fontWeight: "bold",
+        display: 'flex',
+        flexDirection:'row',
         marginTop: 20,
-    }
+        flex: 1,
+        justifyContent:'space-between',
+        alignItems: 'center',
+        width: '60%',
+    },
 });
