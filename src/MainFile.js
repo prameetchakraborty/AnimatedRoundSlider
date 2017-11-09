@@ -1,21 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Animated } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
+import * as Animatable from 'react-native-animatable';
 import AnimatedSlider from './AnimatedSlider';
 import Love from '../images/love_icon.png';
 import GeekyAnts from '../images/geekyants.png';
 import style from './style';
-import Timer from './Timer';
 
 export default class App extends React.Component {
     state = {
         startAngle: Math.PI * 10 / 6,
         angleLength: Math.PI * 7 / 6,
     }
-
+    
     calculateMinutesFromAngle(angle) {
         return Math.round(angle / (2 * Math.PI / (12 * 12))) * 5;
-    }
+     }
 
     calculateTimeFromAngle(angle) {
         const minutes = this.calculateMinutesFromAngle(angle);
@@ -61,25 +61,21 @@ export default class App extends React.Component {
                             <Svg height={16} width={16}>
                                 <G fill="#ff9800"></G>
                             </Svg>
-                            <Text style={styles.time}>TIME 1</Text>
+                            {/*<Text style={styles.time}>TIME 1</Text>*/}
                         </View>
-                        <Text style={styles.text}>{time1.h}:{this.padMinutes(time1.m)}</Text>
+                        {/*<Text style={styles.text}>{time1.h}:{this.padMinutes(time1.m)}</Text>*/}
                     </View>
                     <View style={style.time}>
                         <View style={style.timeHeader}>
                             <Svg height={16} width={16}>
                                 <G fill="#ffcf00"></G>
                             </Svg>
-                            <Text style={styles.time}>TIME 2</Text>
+                            {/*<Text style={styles.time}>TIME 2</Text>*/}
                         </View>
-                        <Text style={styles.text}>{time2.h}:{this.padMinutes(time2.m)}</Text>
+                        {/*<Text style={styles.text}>{time2.h}:{this.padMinutes(time2.m)}</Text>*/}
                     </View>
                 </View>
                 <View>
-                    <Timer
-                        style={style.sleepTimeContainer}
-                        minutesLong={this.calculateMinutesFromAngle(angleLength)}
-                    />
                     <AnimatedSlider
                         startAngle={this.state.startAngle}
                         angleLength={this.state.angleLength}
@@ -87,22 +83,26 @@ export default class App extends React.Component {
                         segments={5}
                         strokeWidth={30}
                         radius={150}
-                        gradientColorFrom="#ff9800"
-                        gradientColorTo="#ffcf00"
-                        showClockFace
-                        clockFaceColor="#9d9d9d"
+                        gradientColorFrom="#ff4000"
+                        gradientColorTo="#afff70"
                         bgCircleColor="#171717" />
                 </View>
+                <View style={styles.help}>
+                    <Animatable.Text style={styles.helptext} iterationCount={100} animation="fadeIn" duration={1500} direction="alternate">MOVE THE SLIDER TO CHANGE COLOR</Animatable.Text>
+                </View>
                 <View style={styles.footer}>
-                    <Text style={styles.footertext}>MADE </Text>
-                    <Text style={styles.footertext}>WITH </Text>
-                <Image 
+                    <Animatable.Text style={styles.footertext} iterationCount={100} animation="bounceInLeft"  duration={1500} direction="alternate">MADE</Animatable.Text>
+                    <Animatable.Text style={styles.footertext} iterationCount={100} animation="bounceInUp" duration={1500} direction="alternate">WITH</Animatable.Text>
+                <Animatable.Image 
                 source = {Love}
-                style={{ width: 20, height: 20}}
+                style={{ width: 23, height: 23}}
+                animation="bounceInUp" direction="alternate" duration={1500} iterationCount={100}
                 /> 
-                <Text style={styles.footertext}>AT </Text>
-                <Image source = {GeekyAnts}
-                style={{  width: 20, height: 20 }}
+                <Animatable.Text style={styles.footertext} duration={1500} iterationCount={100} animation="bounceInRight"  direction="alternate">AT</Animatable.Text>
+
+                <Animatable.Image source = {GeekyAnts}
+                style={{  width: 23, height: 23 }}
+                animation="bounceInRight" iterationCount={100} duration={1500} direction="alternate"
                 />
                 </View>
             </View>
@@ -126,13 +126,29 @@ const styles = StyleSheet.create({
     },
     footertext: {
         color: 'white',
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "600",
+    },
+    helptext: {
+        color: 'white',
+        fontSize: 17,
+        fontWeight: "500",
+    },
+    box: {
+        marginTop: 10,
+        width: 100,
+        height: 100,
     },
     time: {
         color: 'white',
         fontSize: 25,
         fontWeight: "800",
+    },
+    help: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: 20,
+        alignItems: 'center',
     },
     footer: {
         display: 'flex',

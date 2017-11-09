@@ -1,10 +1,11 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { PanResponder, View } from 'react-native';
+import { StyleSheet, PanResponder, View, Animated, Image } from 'react-native';
 import Svg, { Circle, G, LinearGradient, Path, Defs, Stop } from 'react-native-svg';
 import range from 'lodash.range';
+import * as Animatable from 'react-native-animatable';
 import { interpolateHcl as interpolateGradient } from 'd3-interpolate';
-import ClockFace from './Clock';
-
+import Geekyants from '../images/geekyants.png';
+import extractBrush from 'react-native-svg/lib/extract/extractBrush';
 
 function calculateArcColor(index0, segments, gradientColorFrom, gradientColorTo) {
     const interpolate = interpolateGradient(gradientColorFrom, gradientColorTo);
@@ -52,6 +53,39 @@ export default class AnimatedSlider extends PureComponent {
         circleCenterY: false,
     }
     
+    static propTypes = {
+        fill: PropTypes.string,
+        path: PropTypes.string.isRequired,
+    };
+    
+    constructor(props) {
+        super(props);
+        this.lastFill = this.props.fill;
+
+        this.state = {
+            fillValue: new Animated.Value(0),
+        };
+        this.state.fillValue.addListener(() => {
+            const { fill } = this.props;
+            const { fillValue } = this.state;
+            const color = fillValue.interpolate({
+                inputRange: [0, 1.4, 3.1, 4.8, 6],
+                outputRange: ['rgb(0,0,0)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,255,255)'],
+            });
+            this.path.setNativeProps({
+                fill: extractBrush(color.__getAnimatedValue()),
+            });
+        });
+    }
+
+    animate = () => {
+        const { fillValue } = this.state;
+        const { angleLength } = this.props;
+        Animated.timing(fillValue, {
+            toValue: angleLength,
+          }).start();
+    };
+
     componentWillMount() {
         this._sleepPanResponder = PanResponder.create({
             onMoveShouldSetPanResponder: (evt, gestureState) => true,
@@ -75,7 +109,7 @@ export default class AnimatedSlider extends PureComponent {
                 }
 
                 onUpdate({ startAngle: newAngle, angleLength: newAngleLength % (2 * Math.PI) });
-            },
+        },
         });
 
         this._wakePanResponder = PanResponder.create({
@@ -96,6 +130,24 @@ export default class AnimatedSlider extends PureComponent {
                 onUpdate({ startAngle, angleLength: newAngleLength });
             },
         });
+    }
+
+    componentDidMount() {
+        //this.animate();
+    }
+
+    componentDidUpdate() {
+        this.animate();
+    }
+
+    setNativeProps = (props) => {
+        this._component && this._component.setNativeProps(props);
+    }
+
+    animation(angle) {
+        Animated.timing(this.animatedValue, {
+            toValue: 7,
+        }).start();
     }
 
     onLayout = () => {
@@ -119,13 +171,13 @@ export default class AnimatedSlider extends PureComponent {
             showClockFace, clockFaceColor, startIcon, stopIcon } = this.props;
 
         const containerWidth = this.getContainerWidth();
+        console.log(containerWidth);
 
         const start = calculateArcCircle(0, segments, radius, startAngle, angleLength);
         const stop = calculateArcCircle(segments - 1, segments, radius, startAngle, angleLength);
-
         return (
             <View style={{ width: containerWidth, height: containerWidth }} onLayout={this.onLayout}>
-                <Svg
+            <Svg
                     height={containerWidth}
                     width={containerWidth}
                     ref={circle => this._circle = circle}
@@ -148,18 +200,11 @@ export default class AnimatedSlider extends PureComponent {
                         <Circle
                             r={radius}
                             strokeWidth={strokeWidth}
-                            fill="transparent"
+                            ref={ref => (this.path = ref)}
+                            fill={this.state.lastFill}
                             stroke={bgCircleColor}
                         />
-                        {
-                            showClockFace && (
-                                <ClockFace
-                                    r={radius - strokeWidth / 2}
-                                    stroke={clockFaceColor}
-                                />
-                            )
-                        }
-                        {
+                       {
                             range(segments).map(i => {
                                 const { fromX, fromY, toX, toY } = calculateArcCircle(i, segments, radius, startAngle, angleLength);
                                 const d = `M ${fromX.toFixed(2)} ${fromY.toFixed(2)} A ${radius} ${radius} 0 0 1 ${toX.toFixed(2)} ${toY.toFixed(2)}`;
@@ -174,6 +219,7 @@ export default class AnimatedSlider extends PureComponent {
                                 )
                             })
                         }
+                       
                         <G
                             fill={gradientColorTo}
                             transform={{ translate: `${stop.toX}, ${stop.toY}` }}
@@ -213,3 +259,14 @@ export default class AnimatedSlider extends PureComponent {
         );
 }
 }
+
+const styles = StyleSheet.create({
+    box: {
+        width: 100,
+        height: 100,
+    },
+    image: {
+        width: 500,
+        height: 500,
+    }
+});
