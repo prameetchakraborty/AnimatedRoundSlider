@@ -1,6 +1,6 @@
 # Animated Round Slider
 
-An Animated Round Slider created using **_React-Native_** for the purpose of setting on an alarm and can also double up as a stopwatch or timer.
+An Animated Round Slider created using **_React-Native_** that interpolates between all the available colors in the spectrum when the slider is moved.
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 ## Preview
@@ -64,6 +64,7 @@ For links to install the Expo app, please visit https://expo.io.
 
  * React Native
  * React Native SVG
+ * React Native Animatable
  * Expo
 
 ## Troubleshooting
