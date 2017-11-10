@@ -17,7 +17,6 @@ function calculateArcColor(index0, segments, gradientColorFrom, gradientColorTo)
 }
 
 function calculateArcCircle(index0, segments, radius, startAngle0 = 0, angleLength0 = 2 * Math.PI) {
-    // Add 0.0001 to the possible angle so when start = stop angle, whole circle is drawn
     const startAngle = startAngle0 % (2 * Math.PI);
     const angleLength = angleLength0 % (2 * Math.PI);
     const index = index0 + 1;
@@ -27,8 +26,6 @@ function calculateArcCircle(index0, segments, radius, startAngle0 = 0, angleLeng
     const fromY = -radius * Math.cos(fromAngle);
     const realToX = radius * Math.sin(toAngle);
     const realToY = -radius * Math.cos(toAngle);
-
-    // add 0.005 to start drawing a little bit earlier so segments stick together
     const toX = radius * Math.sin(toAngle + 0.005);
     const toY = -radius * Math.cos(toAngle + 0.005);
 
@@ -61,7 +58,6 @@ export default class AnimatedSlider extends PureComponent {
     constructor(props) {
         super(props);
         this.lastFill = this.props.fill;
-
         this.state = {
             fillValue: new Animated.Value(0),
         };
@@ -81,7 +77,7 @@ export default class AnimatedSlider extends PureComponent {
     animate = () => {
         const { fillValue } = this.state;
         const { angleLength } = this.props;
-        Animated.timing(fillValue, {
+        Animated.spring(fillValue, {
             toValue: angleLength,
           }).start();
     };
@@ -132,22 +128,12 @@ export default class AnimatedSlider extends PureComponent {
         });
     }
 
-    componentDidMount() {
-        //this.animate();
-    }
-
     componentDidUpdate() {
         this.animate();
     }
 
     setNativeProps = (props) => {
         this._component && this._component.setNativeProps(props);
-    }
-
-    animation(angle) {
-        Animated.timing(this.animatedValue, {
-            toValue: 7,
-        }).start();
     }
 
     onLayout = () => {
@@ -169,10 +155,7 @@ export default class AnimatedSlider extends PureComponent {
     render() {
         const { startAngle, angleLength, segments, strokeWidth, radius, gradientColorFrom, gradientColorTo, bgCircleColor,
             showClockFace, clockFaceColor, startIcon, stopIcon } = this.props;
-
         const containerWidth = this.getContainerWidth();
-        console.log(containerWidth);
-
         const start = calculateArcCircle(0, segments, radius, startAngle, angleLength);
         const stop = calculateArcCircle(segments - 1, segments, radius, startAngle, angleLength);
         return (
