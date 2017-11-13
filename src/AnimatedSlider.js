@@ -4,7 +4,6 @@ import Svg, { Circle, G, LinearGradient, Path, Defs, Stop } from 'react-native-s
 import range from 'lodash.range';
 import * as Animatable from 'react-native-animatable';
 import { interpolateHcl as interpolateGradient } from 'd3-interpolate';
-import Geekyants from '../images/geekyants.png';
 import extractBrush from 'react-native-svg/lib/extract/extractBrush';
 
 function calculateArcColor(index0, segments, gradientColorFrom, gradientColorTo) {

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Animated } from 'react-native';
-import Svg, { G, Path } from 'react-native-svg';
 import * as Animatable from 'react-native-animatable';
 import AnimatedSlider from './AnimatedSlider';
 import Love from '../images/love_icon.png';
