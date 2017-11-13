@@ -61,15 +61,18 @@ export default class AnimatedSlider extends PureComponent {
             fillValue: new Animated.Value(0),
         };
         this.state.fillValue.addListener(() => {
-            const { fill } = this.props;
+            const { fill, angleLength, startAngle } = this.props;
             const { fillValue } = this.state;
+            const fillColor = startAngle + 1;
+            const fillPartition = fillColor/7;
             const color = fillValue.interpolate({
-                inputRange: [0, 1.4, 3.1, 4.8, 6],
-                outputRange: ['rgb(0,0,0)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,255,255)'],
+                inputRange: [fillColor - fillColor, fillColor - (fillPartition * 6), fillColor - (fillPartition * 5), fillColor - (fillPartition * 4), fillColor - (fillPartition * 3), fillColor - (fillPartition * 2), fillColor - (fillPartition * 1), fillColor],
+                outputRange: ['rgb(0,0,0)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(0,0,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,0)', 'rgb(255,255,255)'],
             });
             this.path.setNativeProps({
                 fill: extractBrush(color.__getAnimatedValue()),
             });
+            console.log('fillColor', fillColor, fillPartition);
         });
     }
 
@@ -79,6 +82,7 @@ export default class AnimatedSlider extends PureComponent {
         Animated.spring(fillValue, {
             toValue: angleLength,
           }).start();
+          console.log('angleLength', angleLength);
     };
 
     componentWillMount() {
