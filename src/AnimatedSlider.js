@@ -72,8 +72,7 @@ export default class AnimatedSlider extends PureComponent {
             this.path.setNativeProps({
                 fill: extractBrush(color.__getAnimatedValue()),
             });
-            console.log('fillColor', fillColor, fillPartition);
-        });
+          });
     }
 
     animate = () => {
@@ -82,8 +81,7 @@ export default class AnimatedSlider extends PureComponent {
         Animated.spring(fillValue, {
             toValue: angleLength,
           }).start();
-          console.log('angleLength', angleLength);
-    };
+        };
 
     componentWillMount() {
         this._sleepPanResponder = PanResponder.create({
